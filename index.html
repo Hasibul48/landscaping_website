@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GreenScape | Luxury Landscaping</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0B3D2E',
+                        secondary: '#F5F5F5',
+                        accent: '#C8A96A',
+                        dark: '#111111'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary: #0B3D2E;
+            --secondary: #F5F5F5;
+            --accent: #C8A96A;
+            --dark: #111111;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: auto;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--secondary);
+            overflow-x: hidden;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Lenis Styles */
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        
+
+        
+        /* Section Base */
+        section {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Typography - Enhanced */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Header - Glassmorphism */
+        #main-header {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        
+        /* Nav Links */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        
+        /* Buttons - Premium Style */
+        .btn {
+            display: inline-block;
+            padding: 18px 48px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: var(--dark);
+        }
+        .btn-primary:hover {
+            background: #d4b87a;
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(11, 61, 46, 0.15);
+        }
+        
+        /* Service Cards - Enhanced */
+        .service-card {
+            background: white;
+            padding: 56px 36px;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e5e5e5;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 320px;
+            box-sizing: border-box;
+            visibility: visible;
+            opacity: 1;
+            overflow: visible;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-16px);
+            border-color: rgba(200, 169, 106, 0.3);
+            box-shadow: 0 40px 80px rgba(11, 61, 46, 0.1);
+        }
+        
+        .service-card .icon {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 28px;
+            color: var(--primary);
+            transition: all 0.5s ease;
+            flex-shrink: 0;
+        }
+        
+        .service-card:hover .icon {
+            color: var(--accent);
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            transition: color 0.3s ease;
+        }
+        
+        .service-card:hover h3 {
+            color: var(--primary);
+        }
+        
+        /* Project Grid - Enhanced */
+        .project-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .project-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-item:hover img {
+            transform: scale(1.12);
+        }
+        
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
+        }
+        
+        .project-item:hover .project-overlay { 
+            opacity: 1; 
+        }
+        
+        .project-overlay h3 {
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+        
+        .project-overlay p {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+        
+        .project-item:hover .project-overlay h3,
+        .project-item:hover .project-overlay p {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        .project-item:hover .project-overlay p {
+            transition-delay: 0.1s;
+        }
+        
+        /* Testimonial */
+        .testimonial-slide { display: none; opacity: 0; transition: opacity 0.5s ease; }
+        .testimonial-slide.active { display: block; opacity: 1; }
+        
+        .testimonial-arrow { transition: all 0.3s ease; }
+        .testimonial-arrow:hover { background: #C8A96A !important; border-color: #C8A96A !important; color: #111 !important; }
+        
+        /* Process Steps - Enhanced */
+        .process-step {
+            text-align: center;
+            padding: 32px 24px;
+            transition: all 0.5s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 280px;
+            box-sizing: border-box;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        .process-step::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+        
+        .process-step:hover::after {
+            opacity: 1;
+            width: 80px;
+        }
+        
+        .process-step:hover { 
+            transform: translateY(-12px); 
+        }
+        
+        .process-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            font-weight: 700;
+            color: rgba(200, 169, 106, 0.15);
+            line-height: 1;
+            margin-bottom: 20px;
+            transition: color 0.4s ease;
+            flex-shrink: 0;
+        }
+        
+        
+        .process-step:hover .process-num {
+            color: rgba(200, 169, 106, 0.4);
+        }
+        
+        .process-step h3 {
+            font-size: 26px;
+            margin-bottom: 16px;
+        }
+        
+        /* Stats - Enhanced */
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 64px;
+            font-weight: 600;
+            color: var(--accent);
+            line-height: 1;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+        
+        /* Before/After */
+        .ba-item { 
+            position: relative; 
+            overflow: hidden; 
+        }
+        
+        .ba-item img {
+            transition: all 0.6s ease;
+        }
+        
+        .ba-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .ba-label {
+            position: absolute;
+            top: 24px;
+            left: 24px;
+            padding: 10px 24px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        /* Form - Enhanced */
+        .form-input {
+            width: 100%;
+            padding: 24px 28px;
+            border: 1px solid #e5e5e5;
+            background: white;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 6px rgba(200, 169, 106, 0.1);
+        }
+        
+        .form-input::placeholder {
+            color: #999;
+        }
+        
+        /* Footer Links */
+        .footer-link {
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent) !important;
+        }
+        
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-link:hover::after { width: 100%; }
+        
+        /* Social Icons */
+        .social-icon {
+            transition: all 0.3s ease;
+            display: inline-flex;
+        }
+        
+        .social-icon:hover { 
+            color: var(--accent) !important;
+            transform: translateY(-3px);
+        }
+        
+        /* Scroll indicator */
+        .scroll-indicator {
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+        
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(12px); }
+        }
+        
+        /* Hero gradient overlay - Enhanced */
+        .hero-overlay {
+            background: linear-gradient(180deg, 
+                rgba(0,0,0,0.4) 0%, 
+                rgba(0,0,0,0.2) 40%, 
+                rgba(0,0,0,0.3) 100%);
+        }
+        
+        /* Section dividers */
+        .section-divider {
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to top, var(--secondary), transparent);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            #featured .grid { grid-template-columns: 1fr !important; }
+            #about .grid { grid-template-columns: 1fr !important; }
+            #services .grid { grid-template-columns: repeat(2, 1fr) !important; }
+            #process .grid { grid-template-columns: repeat(2, 1fr) !important; }
+            #projects .grid { grid-template-columns: 1fr 1fr !important; }
+            #stats .grid { grid-template-columns: repeat(2, 1fr) !important; }
+            footer > div > div:first-child { grid-template-columns: 1fr !important; gap: 48px !important; }
+        }
+        
+        @media (max-width: 768px) {
+            header > div { padding: 20px 24px !important; }
+            #featured, #about, #services, #process, #projects, #stats, #before-after, #testimonials, #cta, #contact, footer { padding: 80px 24px !important; }
+            #services .grid, #process .grid, #projects .grid { grid-template-columns: 1fr !important; }
+            .stat-number { font-size: 48px !important; }
+            h1 { font-size: clamp(36px, 12vw, 56px) !important; }
+            h2 { font-size: clamp(28px, 6vw, 40px) !important; }
+            .leaf-left, .leaf-right { display: none; }
+            .btn { padding: 16px 32px; font-size: 11px; }
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body class="font-body">
+    <!-- Header -->
+    <header id="main-header" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100; transition: all 0.5s ease;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 24px 48px; display: flex; align-items: center; justify-content: space-between;">
+            <a href="#" style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: #0B3D2E; text-decoration: none;">GreenScape</a>
+            
+            <nav style="display: flex; gap: 48px;" class="desktop-nav">
+                <a href="#home" class="nav-link" style="color: #1a1a1a; text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">Home</a>
+                <a href="#about" class="nav-link" style="color: #1a1a1a; text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">About</a>
+                <a href="#services" class="nav-link" style="color: #1a1a1a; text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">Services</a>
+                <a href="#projects" class="nav-link" style="color: #1a1a1a; text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">Projects</a>
+                <a href="#contact" class="nav-link" style="color: #1a1a1a; text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">Contact</a>
+            </nav>
+            
+            <button id="menu-btn" style="display: none; width: 32px; height: 24px; background: none; border: none; cursor: pointer; position: relative;">
+                <span style="position: absolute; left: 0; width: 100%; height: 2px; background: #0B3D2E; transition: all 0.3s ease; top: 0;"></span>
+                <span style="position: absolute; left: 0; width: 100%; height: 2px; background: #0B3D2E; transition: all 0.3s ease; top: 50%; transform: translateY(-50%);"></span>
+                <span style="position: absolute; left: 0; width: 100%; height: 2px; background: #0B3D2E; transition: all 0.3s ease; bottom: 0;"></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" style="position: fixed; inset: 0; background: #0B3D2E; z-index: 99; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center;">
+            <nav style="display: flex; flex-direction: column; gap: 32px; text-align: center;">
+                <a href="#home" style="color: white; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">Home</a>
+                <a href="#about" style="color: white; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">About</a>
+                <a href="#services" style="color: white; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">Services</a>
+                <a href="#projects" style="color: white; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">Projects</a>
+                <a href="#contact" style="color: white; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. HERO SECTION -->
+    <section id="home" style="height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; z-index: 0;">
+            <img src="https://images.pexels.com/photos/25972319/pexels-photo-25972319.jpeg" 
+                 alt="Luxury Garden" 
+                 class="hero-bg"
+                 style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.15);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.35) 100%);"></div>
+        </div>
+        
+        <div style="position: relative; z-index: 10; text-align: center; padding: 0 24px; max-width: 900px;">
+            <p class="hero-label" style="color: #C8A96A; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 24px; opacity: 0; transform: translateY(20px);">Award-Winning Landscape Design</p>
+            <h1 class="hero-title" style="color: white; font-size: clamp(48px, 8vw, 96px); line-height: 1.1; margin-bottom: 24px; opacity: 0; transform: translateY(40px);">
+                Crafting Luxury<br>Outdoor Spaces
+            </h1>
+            <p class="hero-subtitle" style="color: rgba(255,255,255,0.9); font-size: 18px; line-height: 1.8; max-width: 600px; margin: 0 auto 48px; opacity: 0; transform: translateY(30px);">
+                Transform your outdoor area into an exquisite sanctuary where nature meets sophistication. Experience the art of premium landscaping.
+            </p>
+            <a href="#contact" class="btn btn-primary hero-btn" style="opacity: 0; transform: translateY(20px);">
+                Start Your Journey
+            </a>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div style="position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); animation: float 2s ease-in-out infinite;">
+            <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
+                <rect x="1" y="1" width="22" height="38" rx="11" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                <circle cx="12" cy="12" r="3" fill="rgba(255,255,255,0.8)"/>
+            </svg>
+        </div>
+        <style>@keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }</style>
+    </section>
+
+<!-- 2. ABOUT SECTION - NEW IMAGE -->
+    <section id="about" style="padding: 160px 48px; background: #F5F5F5;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;">
+                <div style="position: relative;">
+                    <img src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=800&q=80" 
+                         alt="Garden Design"
+                         style="width: 100%; border-radius: 8px; box-shadow: 0 40px 80px rgba(0,0,0,0.1);">
+                    <div style="position: absolute; bottom: -40px; right: -40px; width: 200px; height: 200px; background: rgba(200,169,106,0.15); border-radius: 8px; z-index: -1;"></div>
+                </div>
+                
+                <div>
+                    <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">About Us</p>
+                    <h2 style="font-size: clamp(32px, 4vw, 48px); color: #111; margin-bottom: 24px;">Transforming Outdoor Visions Into Reality</h2>
+                    <p style="color: #666; font-size: 16px; line-height: 1.9; margin-bottom: 20px;">
+                        At GreenScape, we believe that exceptional landscaping is more than aesthetics—it's about creating an emotional connection between you and your outdoor sanctuary. For over a decade, we've been the name luxury clients trust.
+                    </p>
+                    <p style="color: #666; font-size: 16px; line-height: 1.9; margin-bottom: 40px;">
+                        Our philosophy is simple: blend artistic vision with ecological wisdom. Every project begins with understanding your lifestyle, preferences, and the unique character of your space.
+                    </p>
+                    
+                    <div style="display: flex; gap: 48px; margin-bottom: 48px;">
+                        <div>
+                            <span class="about-stat" data-count="500" data-suffix="+" style="font-family: 'Playfair Display', serif; font-size: 42px; color: #0B3D2E; font-weight: 600;">0</span>
+                            <p style="color: #999; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Projects</p>
+                        </div>
+                        <div>
+                            <span class="about-stat" data-count="15" data-suffix="+" style="font-family: 'Playfair Display', serif; font-size: 42px; color: #0B3D2E; font-weight: 600;">0</span>
+                            <p style="color: #999; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Years</p>
+                        </div>
+                        <div>
+                            <span class="about-stat" data-count="100" data-suffix="%" style="font-family: 'Playfair Display', serif; font-size: 42px; color: #0B3D2E; font-weight: 600;">0</span>
+                            <p style="color: #999; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">Satisfaction</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="btn btn-outline">Work With Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. FEATURED PROJECT - NEW IMAGE -->
+    <section id="featured" style="min-height: 100vh; position: relative; display: flex; align-items: center;">
+        <div style="position: absolute; inset: 0; z-index: 0;">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80" 
+                 alt="Modern Villa" 
+                 class="featured-bg"
+                 style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,61,46,0.95) 0%, rgba(11,61,46,0.7) 50%, rgba(11,61,46,0.5) 100%);"></div>
+        </div>
+        
+        <div style="position: relative; z-index: 10; width: 100%; padding: 120px 48px;">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;">
+                    <div style="color: white;">
+                        <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Featured Project</p>
+                        <h2 style="font-size: clamp(36px, 5vw, 56px); margin-bottom: 24px;">The Royal Estate</h2>
+                        <p style="color: rgba(255,255,255,0.85); font-size: 17px; line-height: 1.9; margin-bottom: 40px; max-width: 500px;">
+                            A breathtaking 5-acre landscape featuring manicured lawns, cascading water features, and meticulously designed garden rooms. This award-winning project showcases our commitment to excellence in every detail.
+                        </p>
+                        <a href="#projects" style="display: inline-flex; align-items: center; gap: 12px; color: #C8A96A; text-decoration: none; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s ease;">
+                            View All Projects
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                    
+                    <div style="position: relative;">
+                        <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&q=80" 
+                             alt="Pool Details"
+                             style="width: 100%; border-radius: 8px; box-shadow: 0 40px 80px rgba(0,0,0,0.3);">
+                        <div style="position: absolute; bottom: -30px; left: -30px; width: 150px; height: 150px; border: 2px solid #C8A96A; border-radius: 8px; z-index: -1;"></div>
+                        <div style="position: absolute; top: -20px; right: -20px; width: 100px; height: 100px; background: rgba(200,169,106,0.2); border-radius: 50%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SERVICES SECTION -->
+    <section id="services" style="padding: 160px 48px; background: white; overflow: visible; position: relative; z-index: 1;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 80px;">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Our Services</p>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); color: #111;">Comprehensive Solutions</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; overflow: visible;">
+<!-- Service 1 -->
+                <div class="service-card" style="visibility: visible; opacity: 1; transform: translate(0px, -10px);">
+                    <div class="icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 style="font-size: 22px; color: #111; margin-bottom: 16px;">Garden Design</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">Custom landscape design that transforms your vision into breathtaking reality.</p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card" style="visibility: visible; opacity: 1; transform: translate(0px, 10px);">
+                    <div class="icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                        </svg>
+                    </div>
+                    <h3 style="font-size: 22px; color: #111; margin-bottom: 16px;">Lawn Care</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">Expert maintenance programs that keep your lawn lush, green, and pristine.</p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card" style="visibility: visible; opacity: 1; transform: translate(0px, 25px);">
+                    <div class="icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                        </svg>
+                    </div>
+                    <h3 style="font-size: 22px; color: #111; margin-bottom: 16px;">Hardscaping</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">Stone pathways, elegant patios, and structural features that add dimension.</p>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="service-card" style="visibility: visible; opacity: 1; transform: translate(0px, 40px);">
+                    <div class="icon">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 style="font-size: 22px; color: #111; margin-bottom: 16px;">Maintenance</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">Ongoing care programs designed to preserve the beauty of your investment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. PROCESS SECTION -->
+    <section id="process" style="padding: 160px 48px; position: relative; overflow: hidden; z-index: 1;">
+        <!-- Background like CTA section -->
+        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0B3D2E 0%, #071f19 100%);"></div>
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(200,169,106,0.15) 0%, transparent 50%);"></div>
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 80%, rgba(200,169,106,0.1) 0%, transparent 40%);"></div>
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 1px solid rgba(200,169,106,0.1); margin: 20px;"></div>
+        
+        <div style="position: relative; z-index: 10; max-width: 1400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 80px;">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Our Process</p>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); color: white;">How We Work</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px;">
+                <div class="process-step" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(200,169,106,0.1); border-radius: 12px; padding: 48px 32px; opacity: 1 !important; transform: translate(0px, -10px);">
+                    <div class="process-num" style="color: rgba(200,169,106,0.3);">01</div>
+                    <h3 style="font-size: 26px; color: white; margin-bottom: 16px;">Consultation</h3>
+                    <p style="color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.8;">We begin by listening. Understanding your vision, lifestyle, and preferences.</p>
+                </div>
+                <div class="process-step" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(200,169,106,0.1); border-radius: 12px; padding: 48px 32px; opacity: 1 !important; transform: translate(0px, 10px);">
+                    <div class="process-num" style="color: rgba(200,169,106,0.3);">02</div>
+                    <h3 style="font-size: 26px; color: white; margin-bottom: 16px;">Design</h3>
+                    <p style="color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.8;">Our designers craft detailed plans and 3D renderings bringing your vision to life.</p>
+                </div>
+                <div class="process-step" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(200,169,106,0.1); border-radius: 12px; padding: 48px 32px; opacity: 1 !important; transform: translate(0px, 25px);">
+                    <div class="process-num" style="color: rgba(200,169,106,0.3);">03</div>
+                    <h3 style="font-size: 26px; color: white; margin-bottom: 16px;">Build</h3>
+                    <p style="color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.8;">Our master craftsmen execute every detail with meticulous care.</p>
+                </div>
+                <div class="process-step" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(200,169,106,0.1); border-radius: 12px; padding: 48px 32px; opacity: 1 !important; transform: translate(0px, 40px);">
+                    <div class="process-num" style="color: rgba(200,169,106,0.3);">04</div>
+                    <h3 style="font-size: 26px; color: white; margin-bottom: 16px;">Maintain</h3>
+                    <p style="color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.8;">We ensure your landscape remains breathtaking with ongoing care.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. PROJECTS GRID - NEW IMAGES -->
+    <section id="projects" style="padding: 160px 48px; background: #F5F5F5;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 80px;">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Our Work</p>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); color: #111;">Featured Projects</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;">
+                <div class="project-item">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80" alt="Modern Estate" style="width: 100%; height: 400px; object-fit: cover;">
+                    <div class="project-overlay">
+                        <h3 style="font-size: 28px; color: white; margin-bottom: 8px;">Modern Estate</h3>
+                        <p style="color: rgba(255,255,255,0.7); font-size: 14px;">Contemporary luxury with infinity pool</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Mediterranean Villa" style="width: 100%; height: 400px; object-fit: cover;">
+                    <div class="project-overlay">
+                        <h3 style="font-size: 28px; color: white; margin-bottom: 8px;">Mediterranean Villa</h3>
+                        <p style="color: rgba(255,255,255,0.7); font-size: 14px;">Classic elegance with rose gardens</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Tropical Paradise" style="width: 100%; height: 400px; object-fit: cover;">
+                    <div class="project-overlay">
+                        <h3 style="font-size: 28px; color: white; margin-bottom: 8px;">Tropical Paradise</h3>
+                        <p style="color: rgba(255,255,255,0.7); font-size: 14px;">Lush exotic plantings and water features</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. STATS SECTION -->
+    <section id="stats" style="padding: 100px 48px; background: #111; color: white;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; text-align: center;">
+                <div>
+                    <span class="stat-number" data-count="500" style="font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 600; color: #C8A96A; line-height: 1;">0</span>
+                    <span style="display: block; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px;">Projects Completed</span>
+                </div>
+                <div>
+                    <span class="stat-number" data-count="10" style="font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 600; color: #C8A96A; line-height: 1;">0</span>
+                    <span style="display: block; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px;">Years Experience</span>
+                </div>
+                <div>
+                    <span class="stat-number" data-count="100" style="font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 600; color: #C8A96A; line-height: 1;">0</span>
+                    <span style="display: block; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px;">% Satisfaction</span>
+                </div>
+                <div>
+                    <span class="stat-number" data-count="50" style="font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 600; color: #C8A96A; line-height: 1;">0</span>
+                    <span style="display: block; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px;">Team Members</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. BEFORE/AFTER - NEW IMAGES -->
+    <section id="before-after" style="padding: 160px 48px; background: white;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 80px;">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Transformation</p>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); color: #111;">Before & After</h2>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                <div class="ba-item">
+                    <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80" alt="Before" style="width: 100%; height: 450px; object-fit: cover; filter: grayscale(100%);">
+                    <span class="ba-label" style="background: #111; color: white;">Before</span>
+                </div>
+                <div class="ba-item">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="After" style="width: 100%; height: 450px; object-fit: cover;">
+                    <span class="ba-label" style="background: #C8A96A; color: #111;">After</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. TESTIMONIALS -->
+    <section id="testimonials" style="padding: 160px 48px; background: #111; color: white;">
+        <div style="max-width: 900px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Testimonials</p>
+                <h2 style="font-size: clamp(32px, 4vw, 48px);">What Our Clients Say</h2>
+            </div>
+            
+            <div style="position: relative; min-height: 300px;">
+                <button class="testimonial-arrow testimonial-arrow-left" style="position: absolute; left: -60px; top: 50%; transform: translateY(-50%); background: transparent; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; width: 48px; height: 48px; cursor: pointer; color: white; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 10;">&larr;</button>
+                <button class="testimonial-arrow testimonial-arrow-right" style="position: absolute; right: -60px; top: 50%; transform: translateY(-50%); background: transparent; border: 2px solid rgba(255,255,255,0.3); border-radius: 50%; width: 48px; height: 48px; cursor: pointer; color: white; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; z-index: 10;">&rarr;</button>
+                <div class="testimonial-slide active" data-index="0">
+                    <div style="text-align: center;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="#C8A96A" opacity="0.3" style="margin: 0 auto 32px;">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                        <p style="font-size: 22px; line-height: 1.8; font-weight: 300; margin-bottom: 32px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                            "GreenScape transformed our ordinary backyard into an extraordinary sanctuary. Their attention to detail and understanding of our vision was exceptional. We couldn't be happier with the results."
+                        </p>
+                        <div>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 20px;">Sarah & Michael Thompson</p>
+                            <p style="color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 8px;">Hillsborough, CA</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide" data-index="1">
+                    <div style="text-align: center;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="#C8A96A" opacity="0.3" style="margin: 0 auto 32px;">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                        <p style="font-size: 22px; line-height: 1.8; font-weight: 300; margin-bottom: 32px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                            "The team's professionalism and creativity exceeded all expectations. Our commercial property's landscape has become the highlight of the neighborhood. Truly world-class work."
+                        </p>
+                        <div>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 20px;">Robert Chen</p>
+                            <p style="color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 8px;">CEO, Chen Enterprises</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-slide" data-index="2">
+                    <div style="text-align: center;">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="#C8A96A" opacity="0.3" style="margin: 0 auto 32px;">
+                            <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+                        </svg>
+                        <p style="font-size: 22px; line-height: 1.8; font-weight: 300; margin-bottom: 32px; max-width: 700px; margin-left: auto; margin-right: auto;">
+                            "Working with GreenScape was an absolute pleasure. They delivered on time, on budget, and created a space that brings us joy every single day. Highly recommend."
+                        </p>
+                        <div>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 20px;">Emily Richardson</p>
+                            <p style="color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 8px;">Private Residence, Greenwich</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dots -->
+            <div style="display: flex; justify-content: center; gap: 12px; margin-top: 48px;">
+                <button class="testimonial-dot" data-index="0" style="width: 12px; height: 12px; border-radius: 50%; background: #C8A96A; border: none; cursor: pointer;"></button>
+                <button class="testimonial-dot" data-index="1" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.3); border: none; cursor: pointer;"></button>
+                <button class="testimonial-dot" data-index="2" style="width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,0.3); border: none; cursor: pointer;"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. CTA SECTION -->
+    <section id="cta" style="padding: 180px 48px; position: relative; overflow: hidden;">
+        <!-- Awesome Background -->
+        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0B3D2E 0%, #071f19 100%);"></div>
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(200,169,106,0.2) 0%, transparent 50%);"></div>
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 80%, rgba(200,169,106,0.15) 0%, transparent 40%);"></div>
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 1px solid rgba(200,169,106,0.1); margin: 20px;"></div>
+        
+        <div style="position: relative; z-index: 10; text-align: center; max-width: 800px; margin: 0 auto; color: white;">
+            <div style="display: inline-block; padding: 12px 32px; border: 1px solid rgba(200,169,106,0.5); border-radius: 50px; margin-bottom: 32px; background: rgba(200,169,106,0.08);">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin: 0;">Ready to Begin?</p>
+            </div>
+            <h2 style="font-size: clamp(40px, 6vw, 64px); margin-bottom: 24px; line-height: 1.1;">Let's Build Your<br><span style="color: #C8A96A;">Dream Garden</span></h2>
+            <p style="color: rgba(255,255,255,0.85); font-size: 20px; line-height: 1.8; margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Schedule a consultation with our design experts and discover the endless possibilities for your outdoor space.
+            </p>
+            <a href="#contact" class="btn btn-primary" style="padding: 20px 60px; font-size: 14px; background: #C8A96A; color: #111;">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- 11. CONTACT SECTION -->
+    <section id="contact" style="padding: 160px 48px; background: #F5F5F5;">
+        <div style="max-width: 700px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Get in Touch</p>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); color: #111;">Start Your Project</h2>
+            </div>
+            
+            <form style="display: flex; flex-direction: column; gap: 24px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #666; margin-bottom: 12px;">Your Name</label>
+                        <input type="text" class="form-input" placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #666; margin-bottom: 12px;">Email Address</label>
+                        <input type="email" class="form-input" placeholder="john@example.com">
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #666; margin-bottom: 12px;">Your Message</label>
+                    <textarea class="form-input" rows="6" placeholder="Tell us about your project..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" style="align-self: flex-start; padding: 20px 60px; border: none; cursor: pointer;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- 12. FOOTER -->
+    <footer style="background: #111; color: white; padding: 80px 48px 40px;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; margin-bottom: 60px;">
+                <div>
+                    <h3 style="font-size: 32px; color: #C8A96A; margin-bottom: 20px;">GreenScape</h3>
+                    <p style="color: #666; line-height: 1.8; max-width: 400px;">
+                        Crafting luxury outdoor spaces that transform your vision into breathtaking reality. Where nature meets elegance.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 style="font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8A96A; margin-bottom: 24px;">Quick Links</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+                        <li><a href="#home" class="footer-link" style="color: #888; text-decoration: none; transition: color 0.3s;">Home</a></li>
+                        <li><a href="#about" class="footer-link" style="color: #888; text-decoration: none; transition: color 0.3s;">About</a></li>
+                        <li><a href="#services" class="footer-link" style="color: #888; text-decoration: none; transition: color 0.3s;">Services</a></li>
+                        <li><a href="#projects" class="footer-link" style="color: #888; text-decoration: none; transition: color 0.3s;">Projects</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8A96A; margin-bottom: 24px;">Contact</h4>
+                    <ul style="list-style: none; color: #888; display: flex; flex-direction: column; gap: 12px;">
+                        <li>hello@greenscape.com</li>
+                        <li>+1 (555) 123-4567</li>
+                        <li>123 Garden Avenue<br>Luxury City, LC 12345</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid #222; padding-top: 40px; display: flex; justify-content: space-between; align-items: center;">
+                <p style="color: #555; font-size: 14px;">© 2026 GreenScape. All rights reserved.</p>
+                <div style="display: flex; gap: 24px;">
+                    <a href="#" class="social-icon" style="color: #666;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="#" class="social-icon" style="color: #666;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" class="social-icon" style="color: #666;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

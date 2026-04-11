@@ -1,0 +1,52 @@
+<header class="fixed top-0 left-0 w-full z-50 transition-all duration-500" id="main-header">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <!-- Logo -->
+        <a href="index.html" class="text-2xl font-bold tracking-wide" style="font-family: 'Playfair Display', serif; color: #0B3D2E;">
+            GreenScape
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-10">
+            <a href="#home" class="nav-link text-sm uppercase tracking-widest text-gray-800 hover:text-[#0B3D2E] relative">Home</a>
+            <a href="#about" class="nav-link text-sm uppercase tracking-widest text-gray-800 hover:text-[#0B3D2E] relative">About</a>
+            <a href="#services" class="nav-link text-sm uppercase tracking-widest text-gray-800 hover:text-[#0B3D2E] relative">Services</a>
+            <a href="#projects" class="nav-link text-sm uppercase tracking-widest text-gray-800 hover:text-[#0B3D2E] relative">Projects</a>
+            <a href="#contact" class="nav-link text-sm uppercase tracking-widest text-gray-800 hover:text-[#0B3D2E] relative">Contact</a>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 cursor-pointer" id="menu-btn">
+            <span class="w-6 h-0.5 bg-[#0B3D2E] transition-all duration-300 origin-center"></span>
+            <span class="w-6 h-0.5 bg-[#0B3D2E] transition-all duration-300 origin-center"></span>
+            <span class="w-6 h-0.5 bg-[#0B3D2E] transition-all duration-300 origin-center"></span>
+        </button>
+    </div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="fixed inset-0 bg-[#0B3D2E] z-40 transform translate-x-full transition-transform duration-500 flex items-center justify-center" id="mobile-menu">
+        <nav class="flex flex-col items-center gap-8">
+            <a href="#home" class="mobile-nav-link text-3xl text-white font-light" style="font-family: 'Playfair Display', serif;">Home</a>
+            <a href="#about" class="mobile-nav-link text-3xl text-white font-light" style="font-family: 'Playfair Display', serif;">About</a>
+            <a href="#services" class="mobile-nav-link text-3xl text-white font-light" style="font-family: 'Playfair Display', serif;">Services</a>
+            <a href="#projects" class="mobile-nav-link text-3xl text-white font-light" style="font-family: 'Playfair Display', serif;">Projects</a>
+            <a href="#contact" class="mobile-nav-link text-3xl text-white font-light" style="font-family: 'Playfair Display', serif;">Contact</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Header Styles (injected via JS) -->
+<style>
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #C8A96A;
+        transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+        width: 100%;
+    }
+</style>
