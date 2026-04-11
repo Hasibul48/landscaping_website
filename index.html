@@ -86,8 +86,6 @@
         
         /* Header - Glassmorphism */
         #main-header {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
         }
         
         /* Nav Links */
@@ -144,15 +142,16 @@
         }
         
         .btn-outline {
-            border: 2px solid var(--primary);
-            color: var(--primary);
+            border: 2px solid #ffffff;
+            color: #ffffff;
             background: transparent;
         }
         .btn-outline:hover {
-            background: var(--primary);
+            background: #C8A96A;
+            border-color: var(--accent);
             color: white;
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(11, 61, 46, 0.15);
+            box-shadow: 0 20px 40px rgba(200,169,106,0.15);
         }
         
         /* Service Cards - Enhanced */
@@ -527,7 +526,7 @@
     <!-- 1. HERO SECTION -->
     <section id="home" style="height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
         <div style="position: absolute; inset: 0; z-index: 0;">
-            <img src="https://images.pexels.com/photos/25972319/pexels-photo-25972319.jpeg" 
+            <img src="https://images.pexels.com/photos/34056749/pexels-photo-34056749.jpeg" 
                  alt="Luxury Garden" 
                  class="hero-bg"
                  style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.15);">
@@ -618,9 +617,9 @@
                         <p style="color: rgba(255,255,255,0.85); font-size: 17px; line-height: 1.9; margin-bottom: 40px; max-width: 500px;">
                             A breathtaking 5-acre landscape featuring manicured lawns, cascading water features, and meticulously designed garden rooms. This award-winning project showcases our commitment to excellence in every detail.
                         </p>
-                        <a href="#projects" style="display: inline-flex; align-items: center; gap: 12px; color: #C8A96A; text-decoration: none; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; transition: all 0.3s ease;">
+                        <a href="#projects" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 12px; padding: 18px 48px;">
                             View All Projects
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M5 12h14M12 5l7 7-7 7"/>
                             </svg>
                         </a>

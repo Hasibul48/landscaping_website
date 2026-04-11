@@ -38,12 +38,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('.nav-link');
     const logo = header.querySelector('a');
 
+    // Initial state (white text for hero section)
+    header.style.background = '';
+    header.style.boxShadow = 'none';
+    header.style.padding = '24px 48px';
+    navLinks.forEach(link => {
+        link.style.color = '#ffffff';
+    });
+    logo.style.color = '#ffffff';
+
     ScrollTrigger.create({
         start: 'top -80',
         end: 99999,
         onUpdate: (self) => {
             if (self.direction === 1 && self.scroll() > 80) {
                 header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.backdropFilter = 'blur(20px)';
                 header.style.boxShadow = '0 4px 30px rgba(0,0,0,0.08)';
                 header.style.padding = '16px 48px';
                 
@@ -57,9 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 header.style.padding = '24px 48px';
                 
                 navLinks.forEach(link => {
-                    link.style.color = '#1a1a1a';
+                    link.style.color = '#ffffff';
                 });
-                logo.style.color = '#0B3D2E';
+                logo.style.color = '#ffffff';
             }
         }
     });
@@ -301,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { textContent: 0 },
             {
                 textContent: target,
-                duration: 2.5,
+                duration: 5,
                 ease: 'power3.out',
                 snap: { textContent: 1 },
                 scrollTrigger: {
@@ -327,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { textContent: 0 },
             {
                 textContent: target,
-                duration: 2.5,
+                duration: 5,
                 ease: 'power3.out',
                 snap: { textContent: 1 },
                 scrollTrigger: {
