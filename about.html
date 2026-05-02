@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | GreenScape Luxury Landscaping</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#0B3D2E', secondary: '#F5F5F5', accent: '#C8A96A', dark: '#111111' },
+                    fontFamily: { 'display': ['Playfair Display', 'serif'], 'body': ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        :root { --primary: #0B3D2E; --secondary: #F5F5F5; --accent: #C8A96A; --dark: #111111; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: auto; }
+        body { font-family: 'Inter', sans-serif; background: var(--secondary); overflow-x: hidden; color: #333; line-height: 1.6; }
+
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-stopped { overflow: hidden; }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+
+        section { overflow: hidden; position: relative; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; font-weight: 500; letter-spacing: -0.02em; }
+
+        /* Nav Links — identical to homepage */
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: var(--accent); transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        /* Buttons */
+        .btn {
+            display: inline-block; padding: 18px 48px; font-size: 12px; font-weight: 600;
+            letter-spacing: 3px; text-transform: uppercase;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer; text-decoration: none; position: relative; overflow: hidden;
+        }
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        .btn:hover::before { left: 100%; }
+        .btn-primary { background: var(--accent); color: var(--dark); }
+        .btn-primary:hover { background: #d4b87a; transform: translateY(-4px); box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .btn-outline { border: 2px solid #ffffff; color: #ffffff; background: transparent; }
+        .btn-outline:hover { background: #C8A96A; border-color: var(--accent); color: white; transform: translateY(-4px); box-shadow: 0 20px 40px rgba(200,169,106,0.15); }
+
+        /* Footer Links */
+        .footer-link { position: relative; display: inline-block; transition: color 0.3s ease; }
+        .footer-link:hover { color: var(--accent) !important; }
+        .footer-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s ease; }
+        .footer-link:hover::after { width: 100%; }
+
+        .social-icon { transition: all 0.3s ease; display: inline-flex; }
+        .social-icon:hover { color: var(--accent) !important; transform: translateY(-3px); }
+
+        /* Team Cards */
+        .team-card { position: relative; overflow: hidden; cursor: pointer; }
+        .team-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+        .team-card:hover img { transform: scale(1.08); }
+        .team-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(11,61,46,0.92) 0%, rgba(11,61,46,0.3) 60%, transparent 100%);
+            opacity: 0; transition: opacity 0.5s ease;
+            display: flex; flex-direction: column; justify-content: flex-end; padding: 36px;
+        }
+        .team-card:hover .team-overlay { opacity: 1; }
+        .team-overlay .team-name { transform: translateY(16px); transition: transform 0.5s ease; color: white; }
+        .team-overlay .team-role { transform: translateY(16px); opacity: 0; transition: all 0.5s ease 0.08s; color: var(--accent); }
+        .team-card:hover .team-overlay .team-name,
+        .team-card:hover .team-overlay .team-role { transform: translateY(0); opacity: 1; }
+
+        /* Value Cards — same as service cards */
+        .value-card {
+            padding: 52px 40px; background: white; border: 1px solid #e5e5e5;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; cursor: pointer;
+        }
+        .value-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--accent); transform: scaleX(0); transition: transform 0.5s ease;
+        }
+        .value-card:hover::before { transform: scaleX(1); }
+        .value-card:hover { transform: translateY(-12px); box-shadow: 0 40px 80px rgba(11,61,46,0.1); border-color: rgba(200,169,106,0.3); }
+        .value-num {
+            font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 700;
+            color: rgba(200,169,106,0.12); line-height: 1; margin-bottom: 24px; transition: color 0.4s ease;
+        }
+        .value-card:hover .value-num { color: rgba(200,169,106,0.3); }
+
+        /* Timeline */
+        .timeline-item { position: relative; padding-left: 60px; padding-bottom: 64px; }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: 19px; top: 28px;
+            width: 2px; height: calc(100% - 28px);
+            background: linear-gradient(to bottom, rgba(200,169,106,0.5), transparent);
+        }
+        .timeline-item:last-child::before { display: none; }
+        .timeline-dot {
+            position: absolute; left: 0; top: 4px; width: 40px; height: 40px;
+            border-radius: 50%; background: var(--primary); border: 2px solid var(--accent);
+            display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;
+        }
+        .timeline-item:hover .timeline-dot { background: var(--accent); transform: scale(1.15); }
+        .timeline-year { font-family: 'Playfair Display', serif; font-size: 13px; letter-spacing: 2px; color: var(--accent); text-transform: uppercase; margin-bottom: 8px; }
+
+        /* Award items */
+        .award-item {
+            display: flex; align-items: center; gap: 20px; padding: 24px 28px;
+            background: rgba(255,255,255,0.04); border: 1px solid rgba(200,169,106,0.15);
+            border-radius: 8px; transition: all 0.4s ease;
+        }
+        .award-item:hover { background: rgba(200,169,106,0.08); border-color: rgba(200,169,106,0.4); transform: translateX(8px); }
+
+        /* Stat number */
+        .stat-number { font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 600; color: var(--accent); line-height: 1; }
+
+        /* Quote mark */
+        .quote-mark {
+            font-family: 'Playfair Display', serif; font-size: 200px; line-height: 0.8;
+            color: rgba(200,169,106,0.08); position: absolute; top: 40px; left: 20px; user-select: none;
+        }
+
+        @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+
+        @media (max-width: 1024px) {
+            .team-grid { grid-template-columns: repeat(2,1fr) !important; }
+            .values-grid { grid-template-columns: repeat(2,1fr) !important; }
+            footer > div > div:first-child { grid-template-columns: 1fr !important; gap: 48px !important; }
+        }
+        @media (max-width: 768px) {
+            header > div { padding: 20px 24px !important; }
+            .two-col { grid-template-columns: 1fr !important; }
+            .team-grid { grid-template-columns: 1fr !important; }
+            .values-grid { grid-template-columns: 1fr !important; }
+            .stat-number { font-size: 48px !important; }
+            h1 { font-size: clamp(36px, 12vw, 56px) !important; }
+            h2 { font-size: clamp(28px, 6vw, 40px) !important; }
+            .btn { padding: 16px 32px; font-size: 11px; }
+            section { padding-left: 24px !important; padding-right: 24px !important; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+        }
+
+
+
+        /* Safety net — GSAP animates these, but never leave them invisible */
+.value-card,
+.team-card,
+.timeline-item,
+.award-item {
+    opacity: 1;
+    transform: none;
+}
+
+
+        /* Ensure footer content is always visible */
+footer * {
+    opacity: 1 !important;
+}
+
+footer h3 { color: #C8A96A !important; }
+footer p  { color: #666; }
+footer ul li { color: #888; }
+
+
+
+    </style>
+</head>
+<body class="font-body">
+
+    <!-- ═══ HEADER — identical markup to homepage ═══ -->
+    <header id="main-header" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 100; transition: all 0.5s ease;">
+        <div style="max-width: 1400px; margin: 0 auto; padding: 24px 48px; display: flex; align-items: center; justify-content: space-between;">
+            <a href="index.html" style="font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; text-decoration: none;">GreenScape</a>
+            
+            <nav style="display: flex; gap: 48px;" class="desktop-nav">
+                <a href="index.html#home"     class="nav-link" style="text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">Home</a>
+                <a href="about.html"          class="nav-link active-page" style="text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">About</a>
+                <a href="index.html#services" class="nav-link" style="text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">Services</a>
+                <a href="index.html#projects" class="nav-link" style="text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">Projects</a>
+                <a href="index.html#contact"  class="nav-link" style="text-decoration: none; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; position: relative;">Contact</a>
+            </nav>
+            
+            <button id="menu-btn" style="display: none; width: 32px; height: 24px; background: none; border: none; cursor: pointer; position: relative;">
+                <span style="position: absolute; left: 0; width: 100%; height: 2px; background: currentColor; transition: all 0.3s ease; top: 0;"></span>
+                <span style="position: absolute; left: 0; width: 100%; height: 2px; background: currentColor; transition: all 0.3s ease; top: 50%; transform: translateY(-50%);"></span>
+                <span style="position: absolute; left: 0; width: 100%; height: 2px; background: currentColor; transition: all 0.3s ease; bottom: 0;"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" style="position: fixed; inset: 0; background: #0B3D2E; z-index: 99; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; justify-content: center;">
+            <nav style="display: flex; flex-direction: column; gap: 32px; text-align: center;">
+                <a href="index.html"          style="color: white; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">Home</a>
+                <a href="about.html"          style="color: #C8A96A; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">About</a>
+                <a href="index.html#services" style="color: white; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">Services</a>
+                <a href="index.html#projects" style="color: white; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">Projects</a>
+                <a href="index.html#contact"  style="color: white; font-family: 'Playfair Display', serif; font-size: 36px; text-decoration: none;">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- ═══ 1. HERO ═══ -->
+    <section id="home" style="height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; z-index: 0;">
+            <img src="https://images.pexels.com/photos/1599452/pexels-photo-1599452.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                 alt="Lush Garden"
+                 class="hero-bg"
+                 style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.15);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(160deg, rgba(11,61,46,0.75) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0.4) 100%);"></div>
+        </div>
+
+        <!-- Decorative rings -->
+        <div style="position: absolute; right: 8%; top: 50%; transform: translateY(-50%); width: 380px; height: 380px; border: 1px solid rgba(200,169,106,0.25); border-radius: 50%; z-index: 5; pointer-events: none;"></div>
+        <div style="position: absolute; right: calc(8% + 30px); top: 50%; transform: translateY(-50%); width: 320px; height: 320px; border: 1px solid rgba(200,169,106,0.12); border-radius: 50%; z-index: 5; pointer-events: none;"></div>
+
+        <div style="position: relative; z-index: 10; text-align: center; padding: 0 24px; max-width: 900px;">
+            <p class="hero-label" style="color: #C8A96A; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 24px; opacity: 0; transform: translateY(20px);">Our Story</p>
+            <h1 class="hero-title" style="color: white; font-size: clamp(48px, 8vw, 96px); line-height: 1.08; margin-bottom: 28px; opacity: 0; transform: translateY(40px);">
+                Rooted in Passion,<br><em style="font-style: italic; color: #C8A96A;">Grown</em> with Purpose
+            </h1>
+            <p class="hero-subtitle" style="color: rgba(255,255,255,0.9); font-size: 18px; line-height: 1.8; max-width: 580px; margin: 0 auto 52px; opacity: 0; transform: translateY(30px);">
+                For over a decade, we've shaped the way people experience the outdoors. This is the story behind the landscapes—and the people who bring them to life.
+            </p>
+            <a href="#our-story" class="btn btn-outline hero-btn" style="opacity: 0; transform: translateY(20px);">
+                Discover Our Story
+            </a>
+        </div>
+
+        <div style="position: absolute; bottom: 40px; left: 50%; animation: float 2s ease-in-out infinite;">
+            <svg width="24" height="40" viewBox="0 0 24 40" fill="none">
+                <rect x="1" y="1" width="22" height="38" rx="11" stroke="rgba(255,255,255,0.5)" stroke-width="2"/>
+                <circle cx="12" cy="12" r="3" fill="rgba(255,255,255,0.8)"/>
+            </svg>
+        </div>
+    </section>
+
+
+    <!-- ═══ 2. WHO WE ARE ═══ -->
+    <section id="our-story" style="padding: 160px 48px; background: #F5F5F5;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;" class="two-col">
+
+                <div style="position: relative;" id="about-img">
+                    <img src="https://images.pexels.com/photos/1080721/pexels-photo-1080721.jpeg?auto=compress&cs=tinysrgb&w=800"
+                         alt="Garden Design"
+                         style="width: 100%; border-radius: 8px; box-shadow: 0 40px 80px rgba(0,0,0,0.1);">
+                    <!-- Floating year badge -->
+                    <div style="position: absolute; bottom: -48px; right: -40px; background: #0B3D2E; padding: 36px 40px; border-radius: 8px; box-shadow: 0 32px 64px rgba(11,61,46,0.25); min-width: 220px;">
+                        <span style="font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 600; color: #C8A96A; display: block; line-height: 1;">2013</span>
+                        <span style="color: rgba(255,255,255,0.75); font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">Year Founded</span>
+                    </div>
+                    <div style="position: absolute; top: -30px; left: -30px; width: 180px; height: 180px; background: rgba(200,169,106,0.12); border-radius: 8px; z-index: -1;"></div>
+                </div>
+
+                <div id="about-text">
+                    <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Who We Are</p>
+                    <h2 style="font-size: clamp(32px, 4vw, 50px); color: #111; margin-bottom: 28px; line-height: 1.2;">More Than a Landscaping Company — A Vision</h2>
+                    <p style="color: #666; font-size: 16px; line-height: 1.9; margin-bottom: 22px;">
+                        GreenScape was born from a simple but profound belief: that every outdoor space holds untapped potential for beauty, harmony, and human connection. Founded in 2013 by master landscaper Daniel Ashworth, we set out to redefine what luxury landscaping could mean.
+                    </p>
+                    <p style="color: #666; font-size: 16px; line-height: 1.9; margin-bottom: 40px;">
+                        Today, our team of 50+ dedicated designers, horticulturists, and craftsmen operate across the country, delivering bespoke landscapes that earn international recognition—and more importantly, lifelong client relationships.
+                    </p>
+                    <div style="display: flex; gap: 0; border: 1px solid #e5e5e5; border-radius: 8px; overflow: hidden;">
+                        <div style="flex: 1; padding: 28px 24px; border-right: 1px solid #e5e5e5; text-align: center;">
+                            <span class="about-stat" data-count="500" data-suffix="+" style="font-family: 'Playfair Display', serif; font-size: 38px; color: #0B3D2E; font-weight: 600; display: block; line-height: 1;">0</span>
+                            <span style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Projects</span>
+                        </div>
+                        <div style="flex: 1; padding: 28px 24px; border-right: 1px solid #e5e5e5; text-align: center;">
+                            <span class="about-stat" data-count="12" data-suffix="+" style="font-family: 'Playfair Display', serif; font-size: 38px; color: #0B3D2E; font-weight: 600; display: block; line-height: 1;">0</span>
+                            <span style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Awards</span>
+                        </div>
+                        <div style="flex: 1; padding: 28px 24px; text-align: center;">
+                            <span class="about-stat" data-count="50" data-suffix="+" style="font-family: 'Playfair Display', serif; font-size: 38px; color: #0B3D2E; font-weight: 600; display: block; line-height: 1;">0</span>
+                            <span style="color: #999; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Experts</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ 3. FOUNDER'S NOTE — fullscreen dark, same as #featured ═══ -->
+    <section id="founders-note" style="min-height: 80vh; position: relative; display: flex; align-items: center;">
+        <div style="position: absolute; inset: 0; z-index: 0;">
+            <img src="https://images.pexels.com/photos/1105019/pexels-photo-1105019.jpeg?auto=compress&cs=tinysrgb&w=1920"
+                 alt="Garden"
+                 class="featured-bg"
+                 style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.1);">
+            <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(11,61,46,0.96) 0%, rgba(11,61,46,0.75) 55%, rgba(0,0,0,0.3) 100%);"></div>
+        </div>
+
+        <div style="position: relative; z-index: 10; width: 100%; padding: 120px 48px;">
+            <div style="max-width: 1400px; margin: 0 auto;">
+                <div style="max-width: 680px; position: relative;">
+                    <span class="quote-mark">"</span>
+                    <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 28px; position: relative; z-index: 2;">A Note from Our Founder</p>
+                    <blockquote id="founder-quote" style="font-family: 'Playfair Display', serif; font-size: clamp(22px, 2.8vw, 32px); color: white; line-height: 1.65; font-weight: 400; margin-bottom: 40px; position: relative; z-index: 2; font-style: italic;">
+                        "Every garden I've ever designed began with a conversation—not about plants or stone, but about life. What do you dream of on a Sunday morning? Where do your children laugh freely? The landscape answers those questions before words ever can."
+                    </blockquote>
+                    <div style="display: flex; align-items: center; gap: 20px; position: relative; z-index: 2;">
+                        <div style="width: 56px; height: 56px; border-radius: 50%; overflow: hidden; border: 2px solid #C8A96A; flex-shrink: 0;">
+                            <img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=200" alt="Daniel Ashworth" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div>
+                            <p style="font-family: 'Playfair Display', serif; font-size: 20px; color: white;">Daniel Ashworth</p>
+                            <p style="color: rgba(255,255,255,0.6); font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">Founder & Chief Design Officer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ 4. VALUES — same card style as Services ═══ -->
+    <section id="values" style="padding: 160px 48px; background: white; overflow: visible; position: relative; z-index: 1;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 80px;" class="section-header">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">What Guides Us</p>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); color: #111;">The Principles Behind Every Project</h2>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; overflow: visible;" class="values-grid">
+                <div class="value-card">
+                    <div class="value-num">01</div>
+                    <div style="width: 52px; height: 52px; color: #0B3D2E; margin-bottom: 24px; transition: all 0.5s ease;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="52" height="52"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    </div>
+                    <h3 style="font-size: 24px; color: #111; margin-bottom: 16px;">Uncompromising Quality</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">We use only the finest materials and plants, sourced ethically and selected for longevity. There are no shortcuts—only standards.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">02</div>
+                    <div style="width: 52px; height: 52px; color: #0B3D2E; margin-bottom: 24px; transition: all 0.5s ease;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="52" height="52"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                    </div>
+                    <h3 style="font-size: 24px; color: #111; margin-bottom: 16px;">Timeless Design</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">We design with decades in mind. Trends come and go; our landscapes deepen in character and beauty with every passing season.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">03</div>
+                    <div style="width: 52px; height: 52px; color: #0B3D2E; margin-bottom: 24px; transition: all 0.5s ease;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="52" height="52"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <h3 style="font-size: 24px; color: #111; margin-bottom: 16px;">Ecological Responsibility</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">Every design integrates biodiversity, water efficiency, and native plantings. Beautiful landscapes and healthy ecosystems are not mutually exclusive.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">04</div>
+                    <div style="width: 52px; height: 52px; color: #0B3D2E; margin-bottom: 24px; transition: all 0.5s ease;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="52" height="52"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"/></svg>
+                    </div>
+                    <h3 style="font-size: 24px; color: #111; margin-bottom: 16px;">Client Partnership</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">We don't design for you—we design with you. Deep listening and genuine collaboration produce results that feel personal, never generic.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">05</div>
+                    <div style="width: 52px; height: 52px; color: #0B3D2E; margin-bottom: 24px; transition: all 0.5s ease;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="52" height="52"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <h3 style="font-size: 24px; color: #111; margin-bottom: 16px;">Artisanal Craft</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">Every stone laid, every plant positioned is the result of hands trained over years. Machinery aids us; craftsmanship defines us.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">06</div>
+                    <div style="width: 52px; height: 52px; color: #0B3D2E; margin-bottom: 24px; transition: all 0.5s ease;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="52" height="52"><path d="M12 22V12m0 0C12 6 7 2 2 2c0 5 4 10 10 10zm0 0c0-6 5-10 10-10-1 5-5 9-10 10"/></svg>
+                    </div>
+                    <h3 style="font-size: 24px; color: #111; margin-bottom: 16px;">Living Legacies</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.8;">A landscape is never truly finished—it's alive and evolving. We design spaces that grow richer over time, becoming part of your family's story.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ 5. TIMELINE — same dark bg as #process ═══ -->
+    <section id="timeline" style="padding: 160px 48px; position: relative; overflow: hidden; z-index: 1;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0B3D2E 0%, #071f19 100%);"></div>
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(200,169,106,0.15) 0%, transparent 50%);"></div>
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 80%, rgba(200,169,106,0.1) 0%, transparent 40%);"></div>
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 1px solid rgba(200,169,106,0.1); margin: 20px;"></div>
+
+        <div style="position: relative; z-index: 10; max-width: 1400px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;" class="two-col">
+
+                <!-- Left -->
+                <div>
+                    <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">Our Journey</p>
+                    <h2 style="font-size: clamp(32px, 4vw, 52px); color: white; margin-bottom: 40px; line-height: 1.15;">A Decade of Milestones</h2>
+                    <p style="color: rgba(255,255,255,0.75); font-size: 16px; line-height: 1.9; margin-bottom: 60px;">
+                        From a single designer with a sketchbook to a nationally recognised studio—every year has brought new challenges, new landscapes, and new reasons to love what we do.
+                    </p>
+                    <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 24px;">Recognition</p>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div class="award-item">
+                            <div style="width: 44px; height: 44px; flex-shrink: 0; color: #C8A96A;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="44" height="44"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+                            </div>
+                            <div>
+                                <p style="color: white; font-weight: 500; font-size: 15px;">ASLA Award of Excellence</p>
+                                <p style="color: rgba(255,255,255,0.5); font-size: 13px;">American Society of Landscape Architects · 2022</p>
+                            </div>
+                        </div>
+                        <div class="award-item">
+                            <div style="width: 44px; height: 44px; flex-shrink: 0; color: #C8A96A;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="44" height="44"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            </div>
+                            <div>
+                                <p style="color: white; font-weight: 500; font-size: 15px;">Luxury Landscape of the Year</p>
+                                <p style="color: rgba(255,255,255,0.5); font-size: 13px;">International Garden Design Awards · 2021, 2023</p>
+                            </div>
+                        </div>
+                        <div class="award-item">
+                            <div style="width: 44px; height: 44px; flex-shrink: 0; color: #C8A96A;">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="44" height="44"><path d="M3.85 8.62a4 4 0 014.78-4.77 4 4 0 016.74 0 4 4 0 014.78 4.78 4 4 0 010 6.74 4 4 0 01-4.77 4.78 4 4 0 01-6.75 0 4 4 0 01-4.78-4.77 4 4 0 010-6.76z"/><path d="M9 12l2 2 4-4"/></svg>
+                            </div>
+                            <div>
+                                <p style="color: white; font-weight: 500; font-size: 15px;">Best Sustainable Garden Design</p>
+                                <p style="color: rgba(255,255,255,0.5); font-size: 13px;">Green Built Alliance · 2020, 2024</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Timeline -->
+                <div style="padding-top: 8px;">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><div style="width: 8px; height: 8px; background: #C8A96A; border-radius: 50%;"></div></div>
+                        <div class="timeline-year">2013</div>
+                        <h3 style="font-size: 22px; color: white; margin-bottom: 10px;">Founded in San Francisco</h3>
+                        <p style="color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.7;">Daniel Ashworth launches GreenScape with two designers and an unwavering belief in beauty-driven landscaping.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><div style="width: 8px; height: 8px; background: #C8A96A; border-radius: 50%;"></div></div>
+                        <div class="timeline-year">2015</div>
+                        <h3 style="font-size: 22px; color: white; margin-bottom: 10px;">First Major Estate Commission</h3>
+                        <p style="color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.7;">The Hillborough Estate, a 7-acre transformation, signals our arrival in the luxury market and earns our first regional award.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><div style="width: 8px; height: 8px; background: #C8A96A; border-radius: 50%;"></div></div>
+                        <div class="timeline-year">2018</div>
+                        <h3 style="font-size: 22px; color: white; margin-bottom: 10px;">National Expansion</h3>
+                        <p style="color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.7;">New studios open in New York, Miami, and Chicago. Our team grows to 30 specialists across design, ecology, and construction.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"><div style="width: 8px; height: 8px; background: #C8A96A; border-radius: 50%;"></div></div>
+                        <div class="timeline-year">2021</div>
+                        <h3 style="font-size: 22px; color: white; margin-bottom: 10px;">International Recognition</h3>
+                        <p style="color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.7;">Awarded Luxury Landscape of the Year for the Royal Estate project. Commissions now span three continents.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot" style="background: #C8A96A;"><div style="width: 8px; height: 8px; background: #0B3D2E; border-radius: 50%;"></div></div>
+                        <div class="timeline-year">2025 — Present</div>
+                        <h3 style="font-size: 22px; color: #C8A96A; margin-bottom: 10px;">A New Chapter</h3>
+                        <p style="color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.7;">500 projects completed. 50+ team members. Still driven by the same belief—that a great garden can change how you live.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ 6. TEAM — same grid/hover as #projects ═══ -->
+    <section id="team" style="padding: 160px 48px; background: #F5F5F5;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 80px;" class="section-header">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 20px;">The People</p>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); color: #111;">Minds Behind the Gardens</h2>
+                <p style="color: #888; font-size: 16px; max-width: 560px; margin: 20px auto 0; line-height: 1.8;">Each member brings a unique lens—botanical, architectural, or artistic—united by a shared commitment to the extraordinary.</p>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px;" class="team-grid">
+                <div class="team-card" style="height: 420px;">
+                    <img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Daniel Ashworth">
+                    <div class="team-overlay">
+                        <p class="team-name" style="font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 6px;">Daniel Ashworth</p>
+                        <p class="team-role" style="font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">Founder & CDO</p>
+                    </div>
+                </div>
+                <div class="team-card" style="height: 420px; margin-top: 40px;">
+                    <img src="https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Claire Fontaine">
+                    <div class="team-overlay">
+                        <p class="team-name" style="font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 6px;">Claire Fontaine</p>
+                        <p class="team-role" style="font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">Head of Design</p>
+                    </div>
+                </div>
+                <div class="team-card" style="height: 420px;">
+                    <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Marcus Lee">
+                    <div class="team-overlay">
+                        <p class="team-name" style="font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 6px;">Marcus Lee</p>
+                        <p class="team-role" style="font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">Chief Horticulturist</p>
+                    </div>
+                </div>
+                <div class="team-card" style="height: 420px; margin-top: 40px;">
+                    <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Amara Osei">
+                    <div class="team-overlay">
+                        <p class="team-name" style="font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 6px;">Amara Osei</p>
+                        <p class="team-role" style="font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">Sustainability Lead</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ 7. STATS — identical to homepage ═══ -->
+    <section id="stats" style="padding: 100px 48px; background: #111; color: white;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 48px; text-align: center;">
+                <div>
+                    <span class="stat-number" data-count="500" style="font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 600; color: #C8A96A; line-height: 1;">0</span>
+                    <span style="display: block; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px;">Projects Delivered</span>
+                </div>
+                <div>
+                    <span class="stat-number" data-count="12" style="font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 600; color: #C8A96A; line-height: 1;">0</span>
+                    <span style="display: block; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px;">Industry Awards</span>
+                </div>
+                <div>
+                    <span class="stat-number" data-count="50" style="font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 600; color: #C8A96A; line-height: 1;">0</span>
+                    <span style="display: block; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px;">Team Specialists</span>
+                </div>
+                <div>
+                    <span class="stat-number" data-count="100" style="font-family: 'Playfair Display', serif; font-size: 64px; font-weight: 600; color: #C8A96A; line-height: 1;">0</span>
+                    <span style="display: block; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 8px;">% Satisfaction</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ 8. CTA — identical to homepage ═══ -->
+    <section id="cta" style="padding: 180px 48px; position: relative; overflow: hidden;">
+        <div style="position: absolute; inset: 0; background: linear-gradient(135deg, #0B3D2E 0%, #071f19 100%);"></div>
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 20%, rgba(200,169,106,0.2) 0%, transparent 50%);"></div>
+        <div style="position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 80%, rgba(200,169,106,0.15) 0%, transparent 40%);"></div>
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 1px solid rgba(200,169,106,0.1); margin: 20px;"></div>
+
+        <div style="position: relative; z-index: 10; text-align: center; max-width: 800px; margin: 0 auto; color: white;">
+            <div style="display: inline-block; padding: 12px 32px; border: 1px solid rgba(200,169,106,0.5); border-radius: 50px; margin-bottom: 32px; background: rgba(200,169,106,0.08);">
+                <p style="color: #C8A96A; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; margin: 0;">Begin the Conversation</p>
+            </div>
+            <h2 style="font-size: clamp(40px, 6vw, 64px); margin-bottom: 24px; line-height: 1.1;">Let's Create Something<br><span style="color: #C8A96A;">Extraordinary Together</span></h2>
+            <p style="color: rgba(255,255,255,0.85); font-size: 20px; line-height: 1.8; margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Schedule a no-obligation consultation and discover what your outdoor space can become.
+            </p>
+            <div style="display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;">
+                <a href="index.html#contact" class="btn btn-primary" style="padding: 20px 60px; font-size: 14px;">Get in Touch</a>
+                <a href="index.html#projects" class="btn btn-outline" style="padding: 20px 60px; font-size: 14px;">View Our Work</a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══ FOOTER — identical to homepage ═══ -->
+    <footer style="background: #111; color: white; padding: 80px 48px 40px;">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 80px; margin-bottom: 60px;">
+                <div>
+                    <h3 style="font-size: 32px; color: #C8A96A; margin-bottom: 20px;">GreenScape</h3>
+                    <p style="color: #666; line-height: 1.8; max-width: 400px;">Crafting luxury outdoor spaces that transform your vision into breathtaking reality. Where nature meets elegance.</p>
+                </div>
+                <div>
+                    <h4 style="font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8A96A; margin-bottom: 24px;">Quick Links</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px;">
+                        <li><a href="index.html#home"     class="footer-link" style="color: #888; text-decoration: none;">Home</a></li>
+                        <li><a href="about.html"          class="footer-link" style="color: #C8A96A; text-decoration: none;">About</a></li>
+                        <li><a href="index.html#services" class="footer-link" style="color: #888; text-decoration: none;">Services</a></li>
+                        <li><a href="index.html#projects" class="footer-link" style="color: #888; text-decoration: none;">Projects</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: #C8A96A; margin-bottom: 24px;">Contact</h4>
+                    <ul style="list-style: none; color: #888; display: flex; flex-direction: column; gap: 12px;">
+                        <li>hello@greenscape.com</li>
+                        <li>+1 (555) 123-4567</li>
+                        <li>123 Garden Avenue<br>Luxury City, LC 12345</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="border-top: 1px solid #222; padding-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+                <p style="color: #555; font-size: 14px;">© 2026 GreenScape. All rights reserved.</p>
+                <div style="display: flex; gap: 24px;">
+                    <a href="#" class="social-icon" style="color: #666;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                    </a>
+                    <a href="#" class="social-icon" style="color: #666;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="#" class="social-icon" style="color: #666;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts — same CDNs as homepage -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+    <!-- Your shared script.js handles: Lenis, header scroll, mobile menu -->
+    <script src="script.js"></script>
+
+    <!-- About-page specific animations (extends script.js, no overlap) -->
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ── CRITICAL: Force all animated elements visible immediately ──
+    // GSAP will override these when it animates, but they'll never be stuck invisible
+    document.querySelectorAll('.value-card, .team-card, .timeline-item, .award-item').forEach(el => {
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+    });
+
+    // Wait for Lenis + ScrollTrigger to fully initialise from script.js
+    setTimeout(() => {
+
+        ScrollTrigger.refresh();
+
+        // ── Hero parallax ──────────────────────────────────────────
+        gsap.to('.hero-bg', {
+            yPercent: 20,
+            ease: 'none',
+            scrollTrigger: {
+                trigger: '#home',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+
+        // ── Who We Are ─────────────────────────────────────────────
+        gsap.fromTo('#about-img',
+            { x: -80, opacity: 0 },
+            { x: 0, opacity: 1, duration: 1, ease: 'power3.out',
+              scrollTrigger: { trigger: '#our-story', start: 'top 85%', once: true }
+            }
+        );
+        gsap.fromTo('#about-text > *',
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out',
+              scrollTrigger: { trigger: '#our-story', start: 'top 80%', once: true }
+            }
+        );
+
+        // ── About stats ────────────────────────────────────────────
+        document.querySelectorAll('.about-stat').forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-count'));
+            const suffix = stat.getAttribute('data-suffix') || '';
+            gsap.fromTo({ val: 0 }, { val: 0 },
+                {
+                    duration: 0,
+                    onComplete: () => { stat.textContent = '0' + suffix; }
+                }
+            );
+            ScrollTrigger.create({
+                trigger: stat,
+                start: 'top 90%',
+                once: true,
+                onEnter: () => {
+                    gsap.to({ val: 0 }, {
+                        val: target, duration: 2, ease: 'power2.out',
+                        onUpdate: function() {
+                            stat.textContent = Math.round(this.targets()[0].val) + suffix;
+                        }
+                    });
+                }
+            });
+        });
+
+        // ── Founder quote ──────────────────────────────────────────
+        gsap.fromTo('#founder-quote',
+            { opacity: 0, y: 40 },
+            { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out',
+              scrollTrigger: { trigger: '#founders-note', start: 'top 75%', once: true }
+            }
+        );
+
+        // ── Values cards ───────────────────────────────────────────
+        gsap.fromTo('#values .section-header > *',
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+              scrollTrigger: { trigger: '#values', start: 'top 85%', once: true }
+            }
+        );
+        gsap.fromTo('.value-card',
+            { y: 60, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out',
+              scrollTrigger: { trigger: '.values-grid', start: 'top 90%', once: true }
+            }
+        );
+
+        // ── Timeline ───────────────────────────────────────────────
+        gsap.fromTo('.timeline-item',
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+              scrollTrigger: { trigger: '#timeline', start: 'top 85%', once: true }
+            }
+        );
+        gsap.fromTo('.award-item',
+            { x: -30, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: 'power3.out',
+              scrollTrigger: { trigger: '#timeline', start: 'top 80%', once: true }
+            }
+        );
+
+        // ── Team cards ─────────────────────────────────────────────
+        gsap.fromTo('#team .section-header > *',
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out',
+              scrollTrigger: { trigger: '#team', start: 'top 85%', once: true }
+            }
+        );
+        gsap.fromTo('.team-card',
+            { y: 80, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'power3.out',
+              scrollTrigger: { trigger: '.team-grid', start: 'top 85%', once: true }
+            }
+        );
+
+        // ── Stats counter ──────────────────────────────────────────
+        document.querySelectorAll('#stats .stat-number').forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-count'));
+            ScrollTrigger.create({
+                trigger: '#stats',
+                start: 'top 85%',
+                once: true,
+                onEnter: () => {
+                    gsap.to({ val: 0 }, {
+                        val: target, duration: 2, ease: 'power2.out',
+                        onUpdate: function() {
+                            stat.textContent = Math.round(this.targets()[0].val);
+                        }
+                    });
+                }
+            });
+        });
+
+        // ── CTA ────────────────────────────────────────────────────
+        gsap.fromTo('#cta .relative > *',
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: 'power3.out',
+              scrollTrigger: { trigger: '#cta', start: 'top 80%', once: true }
+            }
+        );
+
+        // ── Footer ─────────────────────────────────────────────────
+        gsap.fromTo('footer > div > div',
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: 'power3.out',
+              scrollTrigger: { trigger: 'footer', start: 'top 95%', once: true }
+            }
+        );
+
+    }, 300); // wait 300ms for Lenis+ScrollTrigger from script.js to be ready
+
+});
+</script>
+</body>
+</html>
