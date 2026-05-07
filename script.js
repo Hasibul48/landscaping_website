@@ -6,13 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // =====================
     // LENIS SMOOTH SCROLL
     // =====================
+    const isMobile = window.innerWidth < 768;
+
     const lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: 'vertical',
-        smoothWheel: true,
+        smoothWheel: !isMobile,
         wheelMultiplier: 1,
-        touchMultiplier: 2,
+        touchMultiplier: isMobile ? 0 : 2,
+        syncTouch: !isMobile,
     });
 
     gsap.registerPlugin(ScrollTrigger);
@@ -75,11 +78,13 @@ ScrollTrigger.create({
     start: 'top -80',
     end: 99999,
     onUpdate: (self) => {
+        const isMobile = window.innerWidth < 768;
+        const hPad = isMobile ? '20px' : '48px';
         if (self.direction === 1 && self.scroll() > 80) {
             header.style.background = 'rgba(255, 255, 255, 0.98)';
             header.style.backdropFilter = 'blur(20px)';
             header.style.boxShadow = '0 4px 30px rgba(0,0,0,0.08)';
-            header.style.padding = '16px 48px';
+            header.style.padding = '16px ' + hPad;
             navLinks.forEach(link => {
                 link.style.color = link.classList.contains('nav-active') ? '#C8A96A' : '#1a1a1a';
             });
@@ -88,7 +93,7 @@ ScrollTrigger.create({
             if (hasHero) {
                 header.style.background = 'transparent';
                 header.style.boxShadow = 'none';
-                header.style.padding = '24px 48px';
+                header.style.padding = '24px ' + hPad;
                 navLinks.forEach(link => {
                     link.style.color = link.classList.contains('nav-active') ? '#C8A96A' : '#ffffff';
                 });
@@ -606,12 +611,11 @@ document.querySelectorAll('.mobile-link').forEach(link => {
 
     if (window.innerWidth < 768) {
         ScrollTrigger.getAll().forEach(st => st.kill());
-        
-        gsap.from('section > *', {
-            y: 20,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.1
-        });
+
+        // Force all GSAP-animated elements visible (inline opacity: 0 prevents .from() from working)
+        gsap.set('.hero-label, .hero-title, .hero-subtitle, .hero-btn, .featured-bg', { opacity: 1, y: 0, scale: 1 });
+        gsap.set('.service-card, .process-step, .project-item, .ba-item, .stat-number, .about-stat', { opacity: 1, y: 0 });
+        gsap.set('.value-card, .team-card, .timeline-item, .award-item', { opacity: 1, x: 0, y: 0 });
+        gsap.set('footer > div > div', { opacity: 1, y: 0 });
     }
 });

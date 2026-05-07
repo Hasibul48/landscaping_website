@@ -25,6 +25,9 @@
         :root { --primary: #0B3D2E; --secondary: #F5F5F5; --accent: #C8A96A; --dark: #111111; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: auto; }
+        @supports (height: 100dvh) {
+            #home { height: 100dvh !important; }
+        }
         body { font-family: 'Inter', sans-serif; background: var(--secondary); overflow-x: hidden; color: #333; line-height: 1.6; }
 
         html.lenis, html.lenis body { height: auto; }
@@ -145,18 +148,23 @@
         @media (max-width: 1024px) {
             .team-grid { grid-template-columns: repeat(2,1fr) !important; }
             .values-grid { grid-template-columns: repeat(2,1fr) !important; }
+            #stats div[style*="grid-template-columns"] { grid-template-columns: repeat(2, 1fr) !important; gap: 32px !important; }
             footer > div > div:first-child { grid-template-columns: 1fr !important; gap: 48px !important; }
+            header .desktop-nav { gap: 24px !important; }
         }
         @media (max-width: 768px) {
             header > div { padding: 20px 24px !important; }
             .two-col { grid-template-columns: 1fr !important; }
             .team-grid { grid-template-columns: 1fr !important; }
+            .team-card { margin-top: 0 !important; }
             .values-grid { grid-template-columns: 1fr !important; }
-            .stat-number { font-size: 48px !important; }
-            h1 { font-size: clamp(36px, 12vw, 56px) !important; }
-            h2 { font-size: clamp(28px, 6vw, 40px) !important; }
-            .btn { padding: 16px 32px; font-size: 11px; }
-            section { padding-left: 24px !important; padding-right: 24px !important; }
+            #stats div[style*="grid-template-columns"] { grid-template-columns: repeat(2, 1fr) !important; gap: 24px !important; }
+            .stat-number { font-size: 42px !important; }
+            h1 { font-size: clamp(32px, 10vw, 48px) !important; }
+            h2 { font-size: clamp(24px, 6vw, 36px) !important; }
+            .btn { padding: 14px 28px; font-size: 10px; letter-spacing: 2px; }
+            section { padding: 60px 20px !important; }
+            .quote-mark { font-size: 120px !important; top: 60px !important; }
         }
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
@@ -604,7 +612,7 @@ footer ul li { color: #888; }
                 </div>
             </div>
             <div style="border-top: 1px solid #222; padding-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-                <p style="color: #555; font-size: 14px;">© 2026 GreenScape. All rights reserved.</p>
+                <p style="color: #555; font-size: 14px; white-space: nowrap; display: flex; align-items: center; gap: 6px;">© 2026 GreenScape. All rights reserved. &nbsp;|&nbsp; Made by <a href="https://flowup-bd.com/" target="_blank" rel="noopener" style="display: inline-flex; align-items: center;"><img src="images/logo.png" alt="Agency Logo" style="height: 20px;"></a></p>
                 <div style="display: flex; gap: 24px;">
                     <a href="#" class="social-icon" style="color: #666;">
                         <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
